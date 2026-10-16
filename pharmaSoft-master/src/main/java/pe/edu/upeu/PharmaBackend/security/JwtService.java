@@ -26,16 +26,11 @@ public class JwtService {
             @Value("${app.jwt.secret}") String secretoBase64,
             @Value("${app.jwt.expiracion-minutos:60}") long expiracionMinutos) {
 
-        // La clave debe tener al menos 256 bits (32 bytes); si es mas
-        // corta, Keys.hmacShaKeyFor lanza WeakKeyException al arrancar.
         this.clave = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretoBase64));
         this.expiracionMinutos = expiracionMinutos;
     }
 
-    /*
-     * Token con: sub = username, authorities = rol y permisos,
-     * iat = emitido en, exp = expira en.
-     */
+
     public String generarToken(UserDetails usuario) {
 
         Instant ahora = Instant.now();
@@ -55,11 +50,7 @@ public class JwtService {
                 .compact();
     }
 
-    /*
-     * Valida firma y expiracion y devuelve el username (claim "sub").
-     * Lanza ExpiredJwtException si expiro y JwtException si la firma
-     * o el formato no son validos.
-     */
+
     public String extraerUsername(String token) {
         return leerClaims(token).getSubject();
     }

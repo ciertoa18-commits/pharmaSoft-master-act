@@ -37,7 +37,6 @@ public final class PermisosPorRol {
         return PERMISOS.getOrDefault(nombreRol, Set.of());
     }
 
-    /* Union de los permisos de todos los roles, ordenada alfabeticamente. */
     public static List<String> permisos(Collection<Rol> roles) {
         Set<String> nombres = new TreeSet<>();
         roles.forEach(rol -> de(rol.getNombre())
@@ -45,10 +44,8 @@ public final class PermisosPorRol {
         return new ArrayList<>(nombres);
     }
 
-    /*
-     * Authorities para Spring Security: un "ROLE_<rol>" por cada rol (para
-     * hasRole) mas un authority por cada permiso (para hasAuthority).
-     */
+
+
     public static List<GrantedAuthority> authorities(Collection<Rol> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         roles.stream()

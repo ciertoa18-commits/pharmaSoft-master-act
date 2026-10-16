@@ -20,10 +20,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByCategoriaId(Long categoriaId);
     boolean existsByCategoriaId(Long categoriaId);
 
-    /*
-     * La categoría se trae en la misma consulta: la respuesta expone
-     * su nombre y sin esto cada producto dispararía una consulta extra.
-     */
+
     @Override
     @EntityGraph(attributePaths = "categoria")
     Page<Producto> findAll(Pageable pageable);
@@ -32,12 +29,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @EntityGraph(attributePaths = "categoria")
     Optional<Producto> findById(Long id);
 
-    /*
-     * Descuento atómico de stock: la condición stock >= cantidad viaja
-     * en el mismo UPDATE, así dos ventas concurrentes del mismo producto
-     * nunca pueden dejar el stock en negativo. Devuelve 0 si no había
-     * stock suficiente en el momento de ejecutar.
-     */
+
     @Modifying
     @Query("""
             update Producto p

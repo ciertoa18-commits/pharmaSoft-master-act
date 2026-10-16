@@ -8,10 +8,7 @@ import pe.edu.upeu.PharmaBackend.entity.Venta;
 
 import java.util.List;
 
-/*
- * Requiere que cliente, detalles y detalles.producto ya estén cargados
- * (fetch join / entity graph); no dispara consultas por su cuenta.
- */
+
 @Component
 public class VentaMapper {
 

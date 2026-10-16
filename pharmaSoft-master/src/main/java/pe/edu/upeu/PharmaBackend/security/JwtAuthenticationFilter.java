@@ -60,8 +60,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (username != null
                     && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                // Se consulta la base en cada peticion: si el usuario fue
-                // deshabilitado despues de emitir el token, deja de entrar.
                 UserDetails usuario = userDetailsService.loadUserByUsername(username);
 
                 if (usuario.isEnabled()) {

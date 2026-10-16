@@ -29,10 +29,7 @@ public class GlobalExceptionHandler {
     private static final Logger log =
             LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    /*
-     * Recurso no encontrado
-     * HTTP 404
-     */
+
     @ExceptionHandler(RecursoNoEncontradoException.class)
     public ResponseEntity<ErrorResponseDTO> handleNotFound(
             RecursoNoEncontradoException ex,
@@ -53,10 +50,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Regla de negocio
-     * HTTP 409
-     */
+
     @ExceptionHandler(ReglaNegocioException.class)
     public ResponseEntity<ErrorResponseDTO> handleBusinessRule(
             ReglaNegocioException ex,
@@ -77,10 +71,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Errores de @Valid
-     * HTTP 400
-     */
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDTO> handleValidation(
             MethodArgumentNotValidException ex,
@@ -113,11 +104,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Parámetro de consulta con formato inválido
-     * (fecha mal formada, id no numérico, estado inexistente)
-     * HTTP 400
-     */
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponseDTO> handleTypeMismatch(
             MethodArgumentTypeMismatchException ex,
@@ -145,11 +132,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(error);
     }
-    /*
-     * Cuerpo JSON ilegible (sintaxis inválida, enum inexistente,
-     * tipo de dato equivocado)
-     * HTTP 400
-     */
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponseDTO> handleNotReadable(
             HttpMessageNotReadableException ex,
@@ -170,13 +153,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Violación de integridad en la base (unique, FK, check).
-     * Es la que salta cuando dos peticiones concurrentes pasan la
-     * validación del servicio y la restricción de la tabla es la que
-     * frena la segunda. No se expone el mensaje del driver.
-     * HTTP 409
-     */
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponseDTO> handleDataIntegrity(
             DataIntegrityViolationException ex,
@@ -202,11 +179,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Credenciales inválidas o usuario deshabilitado en el login.
-     * Sin este handler caería en el genérico y respondería 500.
-     * HTTP 401
-     */
+
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponseDTO> handleAuthentication(
             AuthenticationException ex,
@@ -230,10 +203,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Usuario autenticado sin el permiso que exige @PreAuthorize.
-     * HTTP 403
-     */
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponseDTO> handleAccessDenied(
             AccessDeniedException ex,
@@ -254,18 +224,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
-     * Cualquier otra excepción no contemplada.
-     *
-     * Las excepciones propias de Spring MVC (ruta inexistente 404,
-     * método no soportado 405, parámetro obligatorio ausente 400, ...)
-     * implementan ErrorResponse y traen su propio código de estado: se
-     * respeta ese código y solo se cambia el formato del cuerpo.
-     *
-     * Para el resto (NPE, fallo de conexión, ...) se registra la traza
-     * completa en el log y al cliente solo le llega un mensaje genérico
-     * con HTTP 500, sin filtrar detalles internos.
-     */
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleUnexpected(
             Exception ex,

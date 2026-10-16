@@ -114,12 +114,7 @@ public class ProductoServiceImpl implements ProductoService {
         return productoMapper.toResponse(producto);
     }
 
-    /*
-     * Baja lógica: el producto queda referenciado desde el histórico de
-     * ventas (detalle_ventas.producto_id), así que nunca se borra
-     * físicamente. Con estado=false ya no puede venderse (ver
-     * VentaServiceImpl.registrar) y sigue apareciendo en reportes.
-     */
+
     @Override
     @Transactional
     public void eliminar(Long id) {

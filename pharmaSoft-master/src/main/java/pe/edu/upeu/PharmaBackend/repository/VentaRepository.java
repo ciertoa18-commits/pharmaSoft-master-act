@@ -20,11 +20,7 @@ public interface VentaRepository
         extends JpaRepository<Venta, Long> {
 
 
-    /*
-     * Búsqueda paginada. Se trae el cliente en la misma consulta; los
-     * detalles se cargan aparte con cargarDetalles() porque un fetch
-     * join sobre una colección obliga a Hibernate a paginar en memoria.
-     */
+
     @Query(value = """
             select v
             from Venta v
@@ -49,12 +45,7 @@ public interface VentaRepository
             @Param("hasta") LocalDateTime hasta,
             Pageable pageable);
 
-    /*
-     * Hidrata detalles y producto de las ventas de una página en una
-     * sola consulta. Las instancias devueltas son las mismas del
-     * contexto de persistencia, así que las de la página quedan
-     * inicializadas.
-     */
+
     @Query("""
             select distinct v
             from Venta v

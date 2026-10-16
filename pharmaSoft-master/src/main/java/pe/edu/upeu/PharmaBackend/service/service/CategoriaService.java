@@ -5,10 +5,7 @@ import pe.edu.upeu.PharmaBackend.dto.CategoriaResponseDTO;
 
 import java.util.List;
 
-/*
- * Catálogo pequeño y de consulta frecuente (combos del frontend):
- * se lista completo, sin paginación.
- */
+
 public interface CategoriaService {
 
     CategoriaResponseDTO crear(CategoriaRequestDTO request);

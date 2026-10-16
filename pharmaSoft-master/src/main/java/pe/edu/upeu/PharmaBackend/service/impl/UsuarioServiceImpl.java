@@ -89,7 +89,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RecursoNoEncontradoException("Roles no encontrados: " + faltantes);
         }
 
-        // BCrypt solo admite 72 BYTES: una ñ o una tilde ocupan 2 bytes en UTF-8
+
         if (request.getPassword().getBytes(StandardCharsets.UTF_8).length > 72) {
             throw new ReglaNegocioException("La contraseña no puede superar 72 bytes");
         }

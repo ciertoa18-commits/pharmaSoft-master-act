@@ -7,13 +7,7 @@ import pe.edu.upeu.PharmaBackend.exception.ReglaNegocioException;
 
 import java.util.Set;
 
-/*
- * Arma el Pageable a partir de los parámetros de consulta, validando
- * el rango de página/tamaño y el campo de ordenamiento contra la
- * lista blanca que define cada servicio. Así ningún endpoint expone
- * la estructura interna de la entidad ni permite ordenamientos
- * arbitrarios.
- */
+
 public final class PaginacionUtil {
 
     public static final int TAMANIO_MAXIMO = 100;
